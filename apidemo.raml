@@ -1,0 +1,98 @@
+#%RAML 1.0
+title: meter-replacement
+version: 1.0
+baseUri: http://localhost:8081/Replacement
+mediaType: [ application/json, application/xml, text/xml ]
+protocols: [ HTTP, HTTPS ]
+description: Meter Replacement API
+
+types:
+  request:
+    type: !include schemas/RequestSchema.json
+
+
+traits: 
+  commonJsonResponseCollection:
+    responses:
+      200:
+        description: Success
+        body:
+          application/json:
+            example: |
+              {  
+                "status": "200",
+                "message": "Success"
+              }
+      400:
+        description: Bad Request
+        body:
+          application/json:
+            example: |
+              {  
+                "status": "400",
+                "message": "Bad Request"
+              }
+      404:
+        description: Resource Not Found
+        body:
+          application/json:
+            example: |
+              {  
+                "status": "404",
+                "message": "Resource Not Found"
+              }
+      405:
+        description: Not Acceptable
+        body:
+          application/json:
+            example: |
+              {  
+                "status": "405",
+                "message": "Not Acceptable"
+              }
+      406:
+        description: Method Not Allowed
+        body:
+          application/json:
+            example: |
+              {  
+                "status": "406",
+                "message": "Method Not Allowed"
+              }
+      415:
+        description: Unsupported Media Type
+        body:
+          application/json:
+            example: |
+              {  
+                "status": "415",
+                "message": "Unsupported Media Type"
+              }
+      510:
+        description: Not Implemented
+        body:
+          application/json:
+            example: |
+              {  
+                "status": "501",
+                "message": "Not Implemented"
+              }
+      500:
+        description: Internal Server Error
+        body:
+          application/json:
+            example: |
+              {  
+                "status": "500",
+                "message": "Internal Server Error"
+              }
+  
+/meter:
+  post:
+    description: Replace old meter with new meter
+    body:
+      application/json:
+        type: 
+        example: !include examples/request.json
+    is: [ commonJsonResponseCollection ]
+          
